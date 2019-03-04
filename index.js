@@ -48,8 +48,20 @@ const listFileMatchingOptionalRegexp = (regexp = /.+/) => {
 };
 
 /*
- Read the regexp pattern from the command line (first argument give to the script)
+If "delete" is the first argument, delete an object matching a key
  */
-listFileMatchingOptionalRegexp(argv._[0]). then((s3ObjectsMatchingFilter) => {
+if ("delete" === argv._[0]) {
+    const key = argv._[1];
+    return deleteObjectByKey(key).then((response) => {
+        console.log(response);
+    });
+}
+
+
+/*
+Default action taken by the script - list objects in S3 matching regexp optionally
+Read the regexp pattern from the command line (first argument give to the script)
+ */
+return listFileMatchingOptionalRegexp(argv._[0]). then((s3ObjectsMatchingFilter) => {
     console.log(s3ObjectsMatchingFilter);
 });
