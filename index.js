@@ -52,6 +52,9 @@ If "delete" is the first argument, delete an object matching a key
  */
 if ("delete" === argv._[0]) {
     const key = argv._[1];
+    if (!key) {
+        throw Error("You need to provide the key name to delete")
+    }
     return deleteObjectByKey(key).then((response) => {
         console.log(response);
     });
