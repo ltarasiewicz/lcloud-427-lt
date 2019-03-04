@@ -3,6 +3,7 @@
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 const fs = require("fs");
+const argv = require('minimist')(process.argv.slice(2));
 
 const lcloudBucket = "lcloud-427-lt";
 const pathsToUploadFiles = ["./file-to-upload", "./second-file-to-upload"];
@@ -49,8 +50,6 @@ const listFileMatchingOptionalRegexp = (regexp = /.+/) => {
 /*
  Read the regexp pattern from the command line (first argument give to the script)
  */
-listFileMatchingOptionalRegexp(process.argv[2]). then((s3ObjectsMatchingFilter) => {
+listFileMatchingOptionalRegexp(argv._[0]). then((s3ObjectsMatchingFilter) => {
     console.log(s3ObjectsMatchingFilter);
 });
-
-
